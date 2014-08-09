@@ -1,5 +1,7 @@
 package com.fugitive.utils.mail;
 
+import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -28,6 +30,10 @@ public class SendMailHelper {
 
 			log.info("Mail session retrieved from JNDI");
 			
+			Properties sessionProperties = session.getProperties();
+			log.info("Session properties : {}", sessionProperties);
+			log.info("Mail user : {}", System.getProperty("mail.user"));
+			
 			Message message = new MimeMessage(session);
 			
 			InternetAddress[] address = {new InternetAddress(recipient)};
@@ -36,7 +42,7 @@ public class SendMailHelper {
 		    message.setText(body);
 		    
 		    Transport.send(message);
-
+		    
 			log.info("Mail message sent to: {}", recipient);
 		    
 		} catch (NamingException e) {
