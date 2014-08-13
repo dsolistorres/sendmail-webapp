@@ -19,6 +19,7 @@
 package com.fugitive.utils.mail;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 /**
@@ -43,6 +44,9 @@ public class SendMailController
     {
     }
 
+    @ManagedProperty( "#{mailer}" )
+    ISendMailHelper mailHelper;
+
     /**
      * Method that is backed to a submit button of a form.
      */
@@ -51,7 +55,6 @@ public class SendMailController
     	
     	mailSent = "No";
         try {
-			SendMailHelper mailHelper = new SendMailHelper();
 			mailHelper.sendMail(recipient, subject, body);
 			mailSent = "Yes";
 	    	resultMessage = "Mail sent successfully"; 
@@ -104,6 +107,14 @@ public class SendMailController
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	public ISendMailHelper getMailHelper() {
+		return mailHelper;
+	}
+
+	public void setMailHelper(ISendMailHelper mailHelper) {
+		this.mailHelper = mailHelper;
 	}
 	
 }

@@ -22,7 +22,15 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
 
-    <description>MyProject web.xml</description>
+    <description>SendMail WebApp</description>
+
+	<!-- Spring config location -->
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>
+	        /WEB-INF/applicationContext.xml
+	    </param-value>
+	</context-param>
 
     <!-- JSF standard parameters -->
     <context-param>
@@ -83,6 +91,13 @@
         <param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
         <param-value>com.fugitive.utils.mail</param-value>
     </context-param>
+
+	<!-- Spring context listener -->
+	<listener>
+	    <listener-class>
+	      org.springframework.web.context.ContextLoaderListener
+	    </listener-class>
+	</listener>
 
     <!-- Faces Servlet -->
     <servlet>

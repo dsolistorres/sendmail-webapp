@@ -152,7 +152,23 @@
         	<groupId>org.slf4j</groupId>
         	<artifactId>slf4j-simple</artifactId>
         	<version>${slf4j.version}</version>
+        	<scope>runtime</scope>
         </dependency>
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-core</artifactId>
+	      <version>4.0.6.RELEASE</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-web</artifactId>
+	      <version>4.0.6.RELEASE</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-context-support</artifactId>
+	      <version>4.0.6.RELEASE</version>
+	    </dependency>
     </dependencies>
 
     <profiles>

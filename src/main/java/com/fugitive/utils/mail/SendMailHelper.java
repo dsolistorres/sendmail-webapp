@@ -14,8 +14,10 @@ import javax.naming.NamingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-public class SendMailHelper {
+@Service( "mailer" )
+public class SendMailHelper implements ISendMailHelper {
 
     private Logger log = LoggerFactory.getLogger( getClass() );
 	
