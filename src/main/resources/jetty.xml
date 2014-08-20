@@ -24,8 +24,8 @@
     <Arg>mail/Session</Arg>
     <Arg>
       <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
-        <Set name="user"><SystemProperty name="mail.user" /></Set>
-        <Set name="password"><SystemProperty name="mail.password" /></Set>
+        <Set name="user"><SystemProperty name="email.user.name" /></Set>
+        <Set name="password"><SystemProperty name="email.user.password" /></Set>
         <Set name="properties">
           <New class="java.util.Properties">
             <!-- tls parameters -->
@@ -41,7 +41,6 @@
             <Put name="mail.smtps.port"465</Put>
             <Put name="mail.smtps.auth">true</Put>
              --> 
-            <Put name="mail.from">www-admin@fugitive-sorcerer.com</Put>
             <Put name="mail.debug">true</Put>            
           </New>
         </Set>

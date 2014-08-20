@@ -2,6 +2,6 @@ Test webapp to send mail. It uses MyFaces 2.0 and Spring Framework.
 
 Configured for gmail smpt (requires access for less secure apps in Google Account).
 
-Run with maven jetty plugin : mvn jetty:run -Dmail.user=<mail.user> -Dmail.password=<mail.password>
+Run with maven jetty plugin : mvn jetty:run -Demail.user.name=<mail.user> -Demail.user.password=<mail.password>
 
-Properties mail.user and mail.password are required for authentication. Set them on the command line or with a configuration file.
+Properties email.user.name and email.user.password are required for authentication. Set them on the command line or with a configuration file.
