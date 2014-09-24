@@ -15,13 +15,23 @@
   <context:component-scan base-package="com.fugitive.utils" />
 
   <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName" value="java:comp/env/mail/Session">
-    </property>
+    <property name="jndiName" value="java:comp/env/mail/Session"/>
   </bean>
 
   <bean name="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     <property name="session" ref="mailSession"/>
   </bean>
-
+  
+  <bean name="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityProperties">
+      <props>
+        <prop key="resource.loader">classpath</prop>
+        <prop key="classpath.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader</prop>
+        <prop key="classpath.resource.loader.class.cache">true</prop>
+        <prop key="resource.manager.logwhenfound">true</prop>
+      </props>
+    </property>
+  </bean>
+  
 </beans>
   

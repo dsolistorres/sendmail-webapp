@@ -22,8 +22,14 @@ import org.springframework.stereotype.Service;
 @Service( "mailer" )
 public class SendMailHelper implements ISendMailHelper {
 
-    private Logger log = LoggerFactory.getLogger( getClass() );
+    private static final String MAIL_GENERAL_TEMPLATE = "mail-general-template";
 
+	private Logger log = LoggerFactory.getLogger( getClass() );
+
+    @Inject
+    @Named( value = "mailGenerator" )
+    private IMailGenerator generator;
+    
     @Inject
     @Named( value = "mailSender" )
     private JavaMailSender javaMailSender;
@@ -31,6 +37,8 @@ public class SendMailHelper implements ISendMailHelper {
 	public void sendMail(String recipient, String subject, String body) 
 			throws SendMailException {
 
+		String content = generator.generateMail( MAIL_GENERAL_TEMPLATE, body );		
+		
 		try {
 			Context initial = new InitialContext();
 			Session session = 
@@ -46,7 +54,7 @@ public class SendMailHelper implements ISendMailHelper {
 			MimeMessage message = javaMailSender.createMimeMessage();;
 			
             message.setSubject( subject );
-            message.setText( body );
+            message.setText( content );
 
 	        String fromAddress = System.getProperty( EMAIL_FROM_ADDRESS );
 	        String fromName =  System.getProperty( EMAIL_FROM_NAME );
@@ -57,7 +65,7 @@ public class SendMailHelper implements ISendMailHelper {
             InternetAddress to = new InternetAddress( recipient.trim() );            
             message.setRecipient(Message.RecipientType.TO, to);
 
-            log.debug( "mail content {}", body );
+            log.debug( "mail content {}", content );
 		    
 		    javaMailSender.send( message );
 		    
