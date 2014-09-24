@@ -197,6 +197,32 @@
     </dependencies>
 
     <profiles>
+
+        <profile>
+            <id>gmail-smtp</id>
+            <activation>
+                <property>
+                    <name>!smtp-server</name>
+                </property>
+            </activation>
+            <properties>
+            	<email.smtp.host>smtp.gmail.com</email.smtp.host>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>ses-smtp</id>
+            <activation>
+                <property>
+                    <name>smtp-server</name>
+                    <value>ses</value>
+                </property>
+            </activation>
+            <properties>
+            	<email.smtp.host>email-smtp.us-east-1.amazonaws.com</email.smtp.host>
+            </properties>
+        </profile>
+
         <profile>
             <id>bundle-myfaces</id>
             <activation>
@@ -250,6 +276,11 @@
                                     <!-- optional to use the ecj compiler -->
                                     <name>org.apache.jasper.compiler.disablejsr199</name>
                                     <value>true</value>
+                                </systemProperty>
+                                <systemProperty>
+                                    <!-- smtp server -->
+                                    <name>email.smtp.host</name>
+                                    <value>${email.smtp.host}</value>
                                 </systemProperty>
                             </systemProperties>
                             <webApp>
@@ -334,17 +365,24 @@
                         <artifactId>jetty-maven-plugin</artifactId>
                         <version>${jetty.maven.plugin.version}</version>
                         <configuration>
+                        	<systemPropertiesFile>${basedir}/src/main/resources/sendmail.properties</systemPropertiesFile>
                             <systemProperties>
                                 <systemProperty>
                                     <!-- optional to use the ecj compiler -->
                                     <name>org.apache.jasper.compiler.disablejsr199</name>
                                     <value>true</value>
                                 </systemProperty>
+                                <systemProperty>
+                                    <!-- smtp server -->
+                                    <name>email.smtp.host</name>
+                                    <value>${email.smtp.host}</value>
+                                </systemProperty>
                             </systemProperties>
                             <webApp>
                                 <contextPath>/send-mail</contextPath>
                             </webApp>
                             <scanIntervalSeconds>5</scanIntervalSeconds>
+					        <jettyXml>${basedir}/src/main/resources/jetty.xml</jettyXml>
                         </configuration>
                         <dependencies>
                            <!-- Tld scanning only works when JSF is included
